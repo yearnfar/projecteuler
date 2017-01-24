@@ -3,10 +3,11 @@ package problem1
 import (
 	"fmt"
 	"math"
+	"time"
 )
 
 func init() {
-	fmt.Println(problem2())
+	problem3(600851475143)
 }
 
 //If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
@@ -51,4 +52,41 @@ func problem2() int {
 	}
 
 	return m
+}
+
+//The prime factors of 13195 are 5, 7, 13 and 29.
+//What is the largest prime factor of the number 600851475143 ?
+func problem3(n float64) {
+	s := time.Now()
+
+	fmt.Println("最大质因子：", primeFactor(n, 0))
+	fmt.Println("耗时：", time.Now().Sub(s))
+}
+
+func primeFactor(n float64, m float64) float64 {
+	h := math.Ceil(n / 2)
+
+	for i := float64(2); i < h; i++ {
+		if math.Mod(n, i) == 0 && isPrime(i) {
+			if i > m {
+				m = i
+			}
+
+			return primeFactor(n/i, m)
+		}
+	}
+
+	return math.Max(n, m)
+}
+
+func isPrime(n float64) bool {
+	h := math.Ceil(n / 2)
+
+	for i := float64(2); i < h; i++ {
+		if math.Mod(n, i) == 0 {
+			return false
+		}
+	}
+
+	return true
 }
