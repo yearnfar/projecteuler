@@ -7,7 +7,7 @@ import (
 )
 
 func init() {
-	problem3(600851475143)
+	problem4()
 }
 
 //If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
@@ -89,4 +89,34 @@ func isPrime(n float64) bool {
 	}
 
 	return true
+}
+
+func problem4() {
+	m := 0
+
+	for i := 999; i >= 100; i-- {
+		for j := 999; j >= 100; j-- {
+			n := i * j
+
+			if isPalindromic(float64(n)) {
+				if m < n {
+					m = n
+				}
+			}
+		}
+	}
+
+	fmt.Println(m)
+}
+
+func isPalindromic(n float64) bool {
+	x := float64(0)
+	y := n
+
+	for y != 0 {
+		x = x*10 + math.Mod(y, 10)
+		y = math.Floor(y / 10)
+	}
+
+	return x == n
 }
